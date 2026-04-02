@@ -3,17 +3,16 @@
 #include <iomanip>
 #include <list>
 #include "Goat.h"
-
 using namespace std;
 
 const int SZ_NAMES = 200,
     SZ_COLORS = 25,
     MAX_AGE = 20;
 
-int select_goat(list <Goat> trip);
-void delete_goat(list <Goat> &trip);
-void add_goat(list <Goat> &trip, string[], string[]);
-void display_trip(list <Goat> trip);
+int select_goat(list < Goat > trip);
+void delete_goat(list < Goat > & trip);
+void add_goat(list < Goat > & trip, string[], string[]);
+void display_trip(list < Goat > trip);
 int main_menu();
 
 int main() {
@@ -24,27 +23,37 @@ int main() {
     ifstream fin("names.txt");
     string names[SZ_NAMES];
     int i = 0;
-    while (fin >> names[i++]);
+    while (fin >> names[i++])
+    ;
     fin.close();
     ifstream fin1("colors.txt");
     string colors[SZ_COLORS];
     i = 0;
-    while (fin1 >> colors[i++]);
+    while (fin1 >> colors[i++])
+    ;
     fin1.close();
 
-    list <Goat> trip; // Creat list of goats in group of goats (A trip!)
+    list < Goat > trip; // Create list of goats in group of goats (A trip!)
     again = true;
 
-    while (again) {
+    while (again) { // Main menu loop. Will continue until user selects exit.
         int choice = main_menu();
         switch (choice) {
-            case 1: add_goat(trip, names, colors); break;
-            case 2: delete_goat(trip); break;
-            case 3: display_trip(trip); break;
-            case 4: again = false; break;
+        case 1:
+            add_goat(trip, names, colors);
+            break;
+        case 2:
+            delete_goat(trip);
+            break;
+        case 3:
+            display_trip(trip);
+            break;
+        case 4:
+            again = false;
+            break;
         }
     }
-
+    cout << "Closing Goat Manager 3001... " << endl;
     return 0;
 }
 
@@ -64,7 +73,7 @@ int main_menu() {
     return choice;
 }
 // create a goat with random name, age, and color and add to the list
-void add_goat(list <Goat> &trip, string names[], string colors[]) {
+void add_goat(list < Goat > & trip, string names[], string colors[]) {
     string name = names[rand() % SZ_NAMES];
     int age = rand() % MAX_AGE + 1;
     string color = colors[rand() % SZ_COLORS];
@@ -72,9 +81,9 @@ void add_goat(list <Goat> &trip, string names[], string colors[]) {
 }
 
 // Let user select goat from list. Will be used for delete goat function.
-int select_goat(const list <Goat> trip) {
+int select_goat(const list < Goat > trip) {
     int index = 1;
-    for (const auto &goat : trip) { // Shows organized list of goats to choose.
+    for (const auto & goat: trip) { // Shows organized list of goats to choose.
         cout << "[" << index << "] " << goat.get_name() << endl;
         index++;
     }
@@ -90,7 +99,7 @@ int select_goat(const list <Goat> trip) {
 }
 
 // delete goat from list
-void delete_goat(list <Goat> &trip) {
+void delete_goat(list < Goat > & trip) {
     int choice = select_goat(trip); // Calls select_goat to get index of goat to delete.
     auto it = trip.begin();
     advance(it, choice - 1); // Advances iterator to the correct position.
@@ -98,10 +107,10 @@ void delete_goat(list <Goat> &trip) {
 }
 
 // display goats in list
-void display_trip(const list <Goat> trip) {
+void display_trip(const list < Goat > trip) {
     cout << left << setw(20) << "Name" << setw(10) << "Age" << setw(15) << "Color" << endl;
     cout << "-----------------------------------------" << endl;
-    for (const auto &goat : trip) { // Displays goats in organized format.
+    for (const auto & goat: trip) { // Displays goats in organized format.
         cout << left << setw(20) << goat.get_name() << setw(10) << goat.get_age() << setw(15) << goat.get_color() << endl;
     }
 }
