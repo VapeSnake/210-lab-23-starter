@@ -33,6 +33,17 @@ int main() {
     fin1.close();
 
     list <Goat> trip; // Creat list of goats in group of goats (A trip!)
+    again = true;
+
+    while (again) {
+        int choice = main_menu();
+        switch (choice) {
+            case 1: add_goat(trip, names, colors); break;
+            case 2: delete_goat(trip); break;
+            case 3: display_trip(trip); break;
+            case 4: again = false; break;
+        }
+    }
 
     return 0;
 }
@@ -71,9 +82,26 @@ int select_goat(list <Goat> trip) {
     do {
         cout << "Select a goat: ";
         cin >> choice;
-        if (choice < 1 || choice > index - 1) {
+        if (choice < 1 || choice > index - 1) { // Input validation. Index - 1 since index is incremented one more time after last goat.
             cout << "Invalid choice. Please try again." << endl;
         }
     } while (choice < 1 || choice > index - 1);
     return choice;
+}
+
+// delete goat from list
+void delete_goat(list <Goat> &trip) {
+    int choice = select_goat(trip); // Calls select_goat to get index of goat to delete.
+    auto it = trip.begin();
+    advance(it, choice - 1); // Advances iterator to the correct position.
+    trip.erase(it); // Erases goat at the position of the iterator.
+}
+
+// display goats in list
+void display_trip(list <Goat> trip) {
+    cout << left << setw(20) << "Name" << setw(10) << "Age" << setw(15) << "Color" << endl;
+    cout << "-----------------------------------------" << endl;
+    for (const auto &goat : trip) { // Displays goats in organized format.
+        cout << left << setw(20) << goat.get_name() << setw(10) << goat.get_age() << setw(15) << goat.get_color() << endl;
+    }
 }
