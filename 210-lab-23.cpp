@@ -72,7 +72,7 @@ void add_goat(list <Goat> &trip, string names[], string colors[]) {
 }
 
 // Let user select goat from list. Will be used for delete goat function.
-int select_goat(list <Goat> trip) {
+int select_goat(const list <Goat> trip) {
     int index = 1;
     for (const auto &goat : trip) { // Shows organized list of goats to choose.
         cout << "[" << index << "] " << goat.get_name() << endl;
@@ -98,7 +98,7 @@ void delete_goat(list <Goat> &trip) {
 }
 
 // display goats in list
-void display_trip(list <Goat> trip) {
+void display_trip(const list <Goat> trip) {
     cout << left << setw(20) << "Name" << setw(10) << "Age" << setw(15) << "Color" << endl;
     cout << "-----------------------------------------" << endl;
     for (const auto &goat : trip) { // Displays goats in organized format.
